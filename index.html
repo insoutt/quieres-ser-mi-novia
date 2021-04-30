@@ -88,7 +88,11 @@
             'Te doy otra oportunidad 😚',
         ];
         yes.addEventListener('click', showAlert);
-        no.addEventListener('mouseover', randomPosition);
+        if(window.outerWidth <= 768) {
+            no.addEventListener('click', randomPosition); // Compatibilidad para celulares y tablets
+        } else {
+            no.addEventListener('mouseover', randomPosition);
+        }
 
         function showAlert() {
             Swal.fire({
@@ -104,9 +108,13 @@
             var pool = document.getElementById('pool');
             var message = document.getElementById('message');
             message.innerText = messages[randomBetween(0, 5)]
-            element.target.style['top'] = randomBetween(0, pool.offsetHeight - 75, 'vertical') + 'px';
-            element.target.style['left'] = randomBetween(15, 85, 'horizontal') + '%';
-            console.log(element.target.style['top'], element.target.style['left']);
+            var top = randomBetween(0, pool.offsetHeight - 75, 'vertical') + 'px';
+            var left = randomBetween(15, 85, 'horizontal') + '%';
+            // console.log('hover', top, left);
+
+            element.target.style['top'] = top;
+            element.target.style['left'] = left;
+            //console.log(element.target.style['top'], element.target.style['left']);
         }
 
         function randomBetween(min, max, type) {
